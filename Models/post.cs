@@ -13,7 +13,7 @@ namespace quizartsocial_backend.Models
 
         public string posts{get; set;}
         public List<comments> comment_data{get; set;}
-    
+
 
     }
 }

@@ -20,13 +20,13 @@ namespace backEnd.Migrations
 
             modelBuilder.Entity("quizartsocial_backend.Models.category", b =>
                 {
-                    b.Property<int>("topic_id")
+                    b.Property<int>("topic_name")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("topic_name");
+                    b.Property<string>("topic_image");
 
-                    b.HasKey("topic_id");
+                    b.HasKey("topic_name");
 
                     b.ToTable("category_table");
                 });

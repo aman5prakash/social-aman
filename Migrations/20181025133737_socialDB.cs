@@ -11,13 +11,13 @@ namespace backEnd.Migrations
                 name: "category_table",
                 columns: table => new
                 {
-                    topic_id = table.Column<int>(nullable: false)
+                    topic_name = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    topic_name = table.Column<string>(nullable: true)
+                    topic_image = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_category_table", x => x.topic_id);
+                    table.PrimaryKey("PK_category_table", x => x.topic_name);
                 });
 
             migrationBuilder.CreateTable(
@@ -36,7 +36,7 @@ namespace backEnd.Migrations
                         name: "FK_post_table_category_table_topic_id",
                         column: x => x.topic_id,
                         principalTable: "category_table",
-                        principalColumn: "topic_id",
+                        principalColumn: "topic_name",
                         onDelete: ReferentialAction.Cascade);
                 });
 

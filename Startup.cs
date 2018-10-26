@@ -10,8 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using quizartsocial_backend;
 using quizartsocial_backend.Models;
-
+using Swashbuckle.AspNetCore.Swagger;
 namespace backEnd
 {
     public class Startup
@@ -28,6 +29,30 @@ namespace backEnd
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<efmodel>();
+
+            services.AddScoped<ITopic, TopicRepo>();
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CORS",
+                corsPolicyBuilder => corsPolicyBuilder
+                // Apply CORS policy for any type of origin
+                .AllowAnyMethod()
+                // Apply CORS policy for any type of http methods
+                .AllowAnyHeader()
+                // Apply CORS policy for any headers
+                .AllowCredentials()
+                .AllowAnyOrigin()
+                // .WithOrigins ("http://localhost:4200","http:localhost:4201")                
+                );
+                // Apply CORS policy for all users
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,8 +66,18 @@ namespace backEnd
             {
                 app.UseHsts();
             }
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
 
-            app.UseHttpsRedirection();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
+            app.UseCors("CORS");
+            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

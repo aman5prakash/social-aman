@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using quizartsocial_backend.Models;
 
 namespace backEnd.Controllers
 {
@@ -10,19 +11,52 @@ namespace backEnd.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        ITopic topicObj;
+
+        public ValuesController(ITopic _topicObj){
+            this.topicObj=_topicObj;
+        }
         // GET api/values
+        /*/
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+           // return new string[] { "value1", "value2" };
+            return Ok();
+
+        }
+        */
+
+        // GET api/values/5
+        [HttpGet("{title}")]
+        //[Route("api/values/{id}")]
+        public IActionResult Get(string title, [FromQuery] string type)
+        {
+            if(type=="name")
+            {
+                List<category> topicName = topicObj.GetAllTopicName();
+                return Ok(topicName);
+                                         
+            }
+
+            else if(type=="image")
+            {
+                List<category> topicImage = topicObj.GetAllTopicImage();
+                return Ok(topicImage);
+
+            }
+            return Ok();
+           
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
+        /*
+        [HttpGet("{id:string}")]
         public ActionResult<string> Get(int id)
         {
             return "value";
         }
+        */
 
         // POST api/values
         [HttpPost]
@@ -35,6 +69,7 @@ namespace backEnd.Controllers
         public void Put(int id, [FromBody] string value)
         {
         }
+
 
         // DELETE api/values/5
         [HttpDelete("{id}")]

@@ -9,7 +9,7 @@ using quizartsocial_backend.Models;
 namespace backEnd.Migrations
 {
     [DbContext(typeof(efmodel))]
-    [Migration("20181022090247_socialDB")]
+    [Migration("20181025133737_socialDB")]
     partial class socialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,13 +22,13 @@ namespace backEnd.Migrations
 
             modelBuilder.Entity("quizartsocial_backend.Models.category", b =>
                 {
-                    b.Property<int>("topic_id")
+                    b.Property<int>("topic_name")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("topic_name");
+                    b.Property<string>("topic_image");
 
-                    b.HasKey("topic_id");
+                    b.HasKey("topic_name");
 
                     b.ToTable("category_table");
                 });
