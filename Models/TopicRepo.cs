@@ -13,7 +13,7 @@ namespace quizartsocial_backend{
              var userFaker = new Faker<category>()
             //.RuleFor(t => t.topic_image, f => f.Image.People());
             .RuleFor(t => t.topic_image, f => f.Internet.Avatar());
-            var users = userFaker.Generate(10);
+            var users = userFaker.Generate(1);
 
             return users;
         }
@@ -23,7 +23,7 @@ namespace quizartsocial_backend{
         {
              var userFaker1 = new Faker<category>()
             .RuleFor(t => t.topic_name, f => f.Name.FirstName());
-            var myusers = userFaker1.Generate(10);
+            var myusers = userFaker1.Generate(1);
 
             return myusers;
 
