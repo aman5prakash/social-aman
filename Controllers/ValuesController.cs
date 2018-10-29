@@ -21,18 +21,19 @@ namespace backEnd.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            int n=10;
-            List<category> lg=new List<category>(10);
+            int n=1000;
+            List<category> lg=new List<category>();
            // return new string[] { "value1", "value2" };
-           Console.WriteLine("--------qqqqqqqqqq");
+         //  Console.WriteLine("--------qqqqqqqqqq");
            for (int i = 0; i < n; i++){
                     List<category> tName = topicObj.GetAllTopicName();
                     List<category> tImage = topicObj.GetAllTopicImage();
-                       Console.WriteLine(tName[0].topic_name);
-                       Console.WriteLine(tImage[0].topic_image);
-                    //    lg[i].topic_name=tName[0].topic_name;
-                    //    lg[i].topic_image=tImage[0].topic_image;
-                    //    lg.Add(tName[0].topic_name,tImage[0].topic_image);
+                     //  Console.WriteLine(tName[0].topic_name);
+                     //  Console.WriteLine(tImage[0].topic_image);
+                    category test=new category();
+                    test.topic_name=tName[0].topic_name;
+                    test.topic_image=tImage[0].topic_image;
+                    lg.Add(test);
            }
 
             return Ok(lg);
