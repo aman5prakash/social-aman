@@ -7,6 +7,8 @@ namespace quizartsocial_backend.Models
         public DbSet<category> category_table { get; set; }
         public DbSet<comments> comments_table{get; set;}
         public DbSet<post> post_table{get; set;}
+        public DbSet<user> user_table{get; set;}
+
 
       public efmodel(DbContextOptions<efmodel> options): base(options){}
 
@@ -18,6 +20,9 @@ namespace quizartsocial_backend.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder){
             modelBuilder.Entity<category>().HasMany(n => n.posts).WithOne().HasForeignKey(c => c.topic_id);
             modelBuilder.Entity<post>().HasMany(n=>n.comment_data).WithOne().HasForeignKey(l=> l.post_id);
+            modelBuilder.Entity<user>().HasMany(n => n.posts).WithOne().HasForeignKey(c => c.user_id);
+            modelBuilder.Entity<user>().HasMany(n=>n.comment_data).WithOne().HasForeignKey(c => c.user_id);
+
         } 
     }
 }
