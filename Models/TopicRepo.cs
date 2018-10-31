@@ -8,34 +8,16 @@ namespace quizartsocial_backend{
 
     public class TopicRepo : ITopic
     {
-        ITopic topicObj;
-        efmodel context;
+        efmodel context=null;
 
-        public TopicRepo(ITopic _topicObj,efmodel _context){
-            this.topicObj=_topicObj;
+        public TopicRepo(efmodel _context){
             this.context=_context;
         }
 
-        public List<category> GetAllTopics()
-        {
-            int n=50;
-            List<category> lg=new List<category>();
-            for (int i = 0; i < n; i++){
-                    List<category> tName = topicObj.GetAllTopicName();
-                    List<category> tImage = topicObj.GetAllTopicImage();
-                    category test=new category();
-                    test.topic_name=tName[0].topic_name;
-                    test.topic_image=tImage[0].topic_image;
-                    lg.Add(test);
-                    context.category_table.Add(test);
-                    context.SaveChanges();
-           }
-           return lg;
-        }
 
-        public List<category> GetAllTopicImage()
+        public List<TopicC> GetAllTopicImage()
         {
-             var userFaker = new Faker<category>()
+             var userFaker = new Faker<TopicC>()
             //.RuleFor(t => t.topic_image, f => f.Image.People());
             .RuleFor(t => t.topic_image, f => f.Internet.Avatar());
             var users = userFaker.Generate(1);
@@ -44,14 +26,21 @@ namespace quizartsocial_backend{
         }
         
 
-        public List<category> GetAllTopicName()
+        public List<TopicC> GetAllTopicName()
         {
-             var userFaker1 = new Faker<category>()
+             var userFaker1 = new Faker<TopicC>()
             .RuleFor(t => t.topic_name, f => f.Name.FirstName());
             var myusers = userFaker1.Generate(1);
 
 
             return myusers;
+
+        }
+
+        public void AddTopicToDB(TopicC obj){
+
+            context.TopicT.Add(obj);
+            context.SaveChanges();
 
         }
         /*

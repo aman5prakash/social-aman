@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backEnd.Migrations
 {
-    public partial class finalmodelDb : Migration
+    public partial class initialDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "category_table",
+                name: "TopicT",
                 columns: table => new
                 {
                     topic_id = table.Column<int>(nullable: false)
@@ -18,11 +18,11 @@ namespace backEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_category_table", x => x.topic_id);
+                    table.PrimaryKey("PK_TopicT", x => x.topic_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "user_table",
+                name: "UserT",
                 columns: table => new
                 {
                     user_id = table.Column<int>(nullable: false)
@@ -32,38 +32,38 @@ namespace backEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_user_table", x => x.user_id);
+                    table.PrimaryKey("PK_UserT", x => x.user_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "post_table",
+                name: "PostT",
                 columns: table => new
                 {
                     post_id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     posts = table.Column<string>(nullable: true),
-                    CategoryForeignKey = table.Column<int>(nullable: false),
+                    TopicForeignKey = table.Column<int>(nullable: false),
                     UserForeignKey = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_post_table", x => x.post_id);
+                    table.PrimaryKey("PK_PostT", x => x.post_id);
                     table.ForeignKey(
-                        name: "FK_post_table_category_table_CategoryForeignKey",
-                        column: x => x.CategoryForeignKey,
-                        principalTable: "category_table",
+                        name: "FK_PostT_TopicT_TopicForeignKey",
+                        column: x => x.TopicForeignKey,
+                        principalTable: "TopicT",
                         principalColumn: "topic_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_post_table_user_table_UserForeignKey",
+                        name: "FK_PostT_UserT_UserForeignKey",
                         column: x => x.UserForeignKey,
-                        principalTable: "user_table",
+                        principalTable: "UserT",
                         principalColumn: "user_id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "comments_table",
+                name: "CommentT",
                 columns: table => new
                 {
                     comment_id = table.Column<int>(nullable: false)
@@ -74,55 +74,55 @@ namespace backEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_comments_table", x => x.comment_id);
+                    table.PrimaryKey("PK_CommentT", x => x.comment_id);
                     table.ForeignKey(
-                        name: "FK_comments_table_post_table_PostForeignKey",
+                        name: "FK_CommentT_PostT_PostForeignKey",
                         column: x => x.PostForeignKey,
-                        principalTable: "post_table",
+                        principalTable: "PostT",
                         principalColumn: "post_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_comments_table_user_table_UsercomForeignKey",
+                        name: "FK_CommentT_UserT_UsercomForeignKey",
                         column: x => x.UsercomForeignKey,
-                        principalTable: "user_table",
+                        principalTable: "UserT",
                         principalColumn: "user_id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_comments_table_PostForeignKey",
-                table: "comments_table",
+                name: "IX_CommentT_PostForeignKey",
+                table: "CommentT",
                 column: "PostForeignKey");
 
             migrationBuilder.CreateIndex(
-                name: "IX_comments_table_UsercomForeignKey",
-                table: "comments_table",
+                name: "IX_CommentT_UsercomForeignKey",
+                table: "CommentT",
                 column: "UsercomForeignKey");
 
             migrationBuilder.CreateIndex(
-                name: "IX_post_table_CategoryForeignKey",
-                table: "post_table",
-                column: "CategoryForeignKey");
+                name: "IX_PostT_TopicForeignKey",
+                table: "PostT",
+                column: "TopicForeignKey");
 
             migrationBuilder.CreateIndex(
-                name: "IX_post_table_UserForeignKey",
-                table: "post_table",
+                name: "IX_PostT_UserForeignKey",
+                table: "PostT",
                 column: "UserForeignKey");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "comments_table");
+                name: "CommentT");
 
             migrationBuilder.DropTable(
-                name: "post_table");
+                name: "PostT");
 
             migrationBuilder.DropTable(
-                name: "category_table");
+                name: "TopicT");
 
             migrationBuilder.DropTable(
-                name: "user_table");
+                name: "UserT");
         }
     }
 }

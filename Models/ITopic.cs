@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 namespace quizartsocial_backend.Models{
     public interface ITopic {
-        List<category> GetAllTopicName();
-        List<category> GetAllTopicImage();
-        List<category> GetAllTopics();
+        List<TopicC> GetAllTopicName();
+        List<TopicC> GetAllTopicImage();
+        void AddTopicToDB(TopicC obj);
         // List<post> GetAllPosts();
         // List<comments> GetAllComments();
 

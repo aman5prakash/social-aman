@@ -12,19 +12,29 @@ namespace backEnd.Controllers
     public class ValuesController : ControllerBase
     {
         ITopic topicObj;
-        efmodel context;
+        
 
-        public ValuesController(ITopic _topicObj,efmodel _context){
+        public ValuesController(ITopic _topicObj){
             this.topicObj=_topicObj;
-            this.context=_context;
         }
         // GET api/values
         
         [HttpGet]
         public IActionResult Get()
         {
-
-         return Ok(topicObj.GetAllTopics());
+            int n=50;
+            List<TopicC> lg=new List<TopicC>();
+            for (int i = 0; i < n; i++){
+                    List<TopicC> tName = topicObj.GetAllTopicName();
+                    List<TopicC> tImage = topicObj.GetAllTopicImage();
+                    TopicC test=new TopicC();
+                    test.topic_name=tName[0].topic_name;
+                    test.topic_image=tImage[0].topic_image;
+                    lg.Add(test);
+                    topicObj.AddTopicToDB(test);
+                    
+           }
+           return Ok(lg);
          
         }
         

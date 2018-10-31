@@ -4,10 +4,10 @@ namespace quizartsocial_backend.Models
 {
     public class efmodel : DbContext
     {
-        public DbSet<category> category_table { get; set; }
-        public DbSet<comments> comments_table{get; set;}
-        public DbSet<post> post_table{get; set;}
-        public DbSet<user> user_table{get; set;}
+        public DbSet<TopicC> TopicT { get; set; }
+        public DbSet<CommentC> CommentT{get; set;}
+        public DbSet<PostC> PostT{get; set;}
+        public DbSet<UserC> UserT{get; set;}
 
 
       public efmodel(DbContextOptions<efmodel> options): base(options){}
@@ -18,11 +18,11 @@ namespace quizartsocial_backend.Models
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
-            modelBuilder.Entity<category>().HasMany(n => n.posts).WithOne().HasForeignKey(c => c.CategoryForeignKey);
-            modelBuilder.Entity<post>().HasMany(n=>n.comment_data).WithOne().HasForeignKey(c=> c.PostForeignKey);
+            modelBuilder.Entity<TopicC>().HasMany(n => n.posts).WithOne().HasForeignKey(c => c.TopicForeignKey);
+            modelBuilder.Entity<PostC>().HasMany(n=>n.comment_data).WithOne().HasForeignKey(c=> c.PostForeignKey);
             
-            modelBuilder.Entity<user>().HasMany(n => n.posts).WithOne().HasForeignKey(c => c.UserForeignKey).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<user>().HasMany(n=>n.comment_data).WithOne().HasForeignKey(c => c.UsercomForeignKey).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<UserC>().HasMany(n => n.posts).WithOne().HasForeignKey(c => c.UserForeignKey).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<UserC>().HasMany(n=>n.comment_data).WithOne().HasForeignKey(c => c.UsercomForeignKey).OnDelete(DeleteBehavior.Restrict);
 
 
 

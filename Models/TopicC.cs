@@ -7,13 +7,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace quizartsocial_backend.Models
 {
-    public class category{
+    public class TopicC{
 
             [Key]
             public int topic_id{get; set;}
             public string topic_name{get; set;}
             public string topic_image{get; set;}
-            public List<post> posts{get; set;}
+            public List<PostC> posts{get; set;}
 
 
     }
