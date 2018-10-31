@@ -39,17 +39,17 @@ namespace backEnd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("PostForeignKey");
+
+                    b.Property<int>("UsercomForeignKey");
+
                     b.Property<string>("comment");
-
-                    b.Property<int>("post_id");
-
-                    b.Property<int>("user_id");
 
                     b.HasKey("comment_id");
 
-                    b.HasIndex("post_id");
+                    b.HasIndex("PostForeignKey");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("UsercomForeignKey");
 
                     b.ToTable("comments_table");
                 });
@@ -60,17 +60,17 @@ namespace backEnd.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CategoryForeignKey");
+
+                    b.Property<int>("UserForeignKey");
+
                     b.Property<string>("posts");
-
-                    b.Property<int>("topic_id");
-
-                    b.Property<int>("user_id");
 
                     b.HasKey("post_id");
 
-                    b.HasIndex("topic_id");
+                    b.HasIndex("CategoryForeignKey");
 
-                    b.HasIndex("user_id");
+                    b.HasIndex("UserForeignKey");
 
                     b.ToTable("post_table");
                 });
@@ -94,26 +94,26 @@ namespace backEnd.Migrations
                 {
                     b.HasOne("quizartsocial_backend.Models.post")
                         .WithMany("comment_data")
-                        .HasForeignKey("post_id")
+                        .HasForeignKey("PostForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("quizartsocial_backend.Models.user")
                         .WithMany("comment_data")
-                        .HasForeignKey("user_id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UsercomForeignKey")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("quizartsocial_backend.Models.post", b =>
                 {
                     b.HasOne("quizartsocial_backend.Models.category")
                         .WithMany("posts")
-                        .HasForeignKey("topic_id")
+                        .HasForeignKey("CategoryForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("quizartsocial_backend.Models.user")
                         .WithMany("posts")
-                        .HasForeignKey("user_id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserForeignKey")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
