@@ -9,8 +9,8 @@ using quizartsocial_backend.Models;
 namespace backEnd.Migrations
 {
     [DbContext(typeof(efmodel))]
-    [Migration("20181031101806_initialDB")]
-    partial class initialDB
+    [Migration("20181105063309_dbsocial3")]
+    partial class dbsocial3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

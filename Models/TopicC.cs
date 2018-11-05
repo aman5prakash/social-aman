@@ -14,6 +14,7 @@ namespace quizartsocial_backend.Models
             public string topic_name{get; set;}
             public string topic_image{get; set;}
             public List<PostC> posts{get; set;}
+            
 
 
     }
