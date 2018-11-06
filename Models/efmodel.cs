@@ -12,10 +12,10 @@ namespace quizartsocial_backend.Models
 
       public efmodel(DbContextOptions<efmodel> options): base(options){}
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-           optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=ToDoNotes_4;Trusted_Connection=True;");
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //    optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=ToDoNotes_4;Trusted_Connection=True;");
+        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
             modelBuilder.Entity<TopicC>().HasMany(n => n.posts).WithOne().HasForeignKey(c => c.TopicForeignKey);
