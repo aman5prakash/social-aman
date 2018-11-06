@@ -72,7 +72,7 @@ namespace backEnd.Controllers
         
          public IActionResult posts(string title)
         {
-             if(title=="cricket")
+             if(title=="occupation")
              {
                 List<PostC> post_indiv = topicObj.GetAllPostsIndi(title);
                 return Ok(post_indiv);

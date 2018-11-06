@@ -13,10 +13,12 @@ namespace quizartsocial_backend.Models
             public int user_id{get; set;}
             public string user_name{get; set;}
             public string user_image{get; set;}
-
+            
             public List<PostC> posts{get; set;}
 
             public List<CommentC> comment_data{get; set;}
+
+          
  
 
 
