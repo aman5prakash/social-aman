@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using quizartsocial_backend.Models;
 
 namespace backEnd.Controllers
@@ -56,18 +57,28 @@ namespace backEnd.Controllers
         
 
         
-        // GET api/values/5
-        [HttpGet("{title}")]
+       // GET api/values/5
+        [HttpGet("[action]")]
         //[Route("api/values/{id}")]
-        public IActionResult Get(string title)
+        public IActionResult GetTopics()
         {
-            if(title=="cricket")
-            {
+            
+                List<TopicC> allTopics=topicObj.GetAllTopics();
+                return Ok(allTopics);
+            
+
+        }
+        [Route("[action]/{title}")]
+        
+         public IActionResult posts(string title)
+        {
+             if(title=="cricket")
+             {
                 List<PostC> post_indiv = topicObj.GetAllPostsIndi(title);
                 return Ok(post_indiv);
                                          
-            }
-            return BadRequest("Bad :p ");
+             }
+             return BadRequest("Bad :p ");
 
         }
 
@@ -82,25 +93,37 @@ namespace backEnd.Controllers
         }
         */
 
-        // POST api/values
-        // [HttpPost]
-        // public IActionResult Post([FromBody] Object value)
-        // {
-        //     Console.WriteLine("hjhgjdsf");
-        //     UserC userObj=new UserC();
-        //     userObj.user_name="Prateek";
-        //     UserC userObj1=new UserC();
-        //     userObj1.user_name="Harsha";
-        //     UserC userObj2=new UserC();
-        //     userObj2.user_name="Kuldeep";
-        //     topicObj.AddUserToDB(userObj);
-        //     topicObj.AddUserToDB(userObj1);
-        //     topicObj.AddUserToDB(userObj2);
-        //     TopicC testTopicObj=new TopicC();
-        //     testTopicObj.topic_name="Cricket";
-        //     topicObj.AddTopicToDB(testTopicObj);
-        //     return Ok("hjhgjdsf");
-        // }
+        //POST api/values
+        [HttpPost]
+        public IActionResult Post([FromBody] Object value)
+        {
+            // Console.WriteLine("hjhgjdsf");
+            // UserC userObj=new UserC();
+            // userObj.user_name="Prateek";
+            // UserC userObj1=new UserC();
+            // userObj1.user_name="Harsha";
+            // UserC userObj2=new UserC();
+            // userObj2.user_name="Kuldeep";
+            // topicObj.AddUserToDB(userObj);
+            // topicObj.AddUserToDB(userObj1);
+            // topicObj.AddUserToDB(userObj2);
+            // TopicC testTopicObj=new TopicC();
+            // testTopicObj.topic_name="Cricket";
+            // topicObj.AddTopicToDB(testTopicObj);
+           // Task<List<string>> str=topicObj.fetchTopicAsync();
+            Task<List<string>> topicReturns = System.Threading.Tasks.Task<string>.Run(() => topicObj.fetchTopicAsync().Result);
+            List<string> topicList = topicReturns.Result;
+            // JObject jo = (JObject)(value);
+            // string ttt = jo["topicName"].ToString();
+            // Console.WriteLine(ttt);
+              for(int i=0;i<topicList.Count;i++){
+                  TopicC test=new TopicC();
+                  test.topic_name=topicList[i];
+                  topicObj.AddTopicToDB(test);
+              }
+              return Ok("hjhgjdsf");
+
+        }
 
         [HttpPost("{postEntered}")]
         public IActionResult Post(string postEntered , [FromBody] PostComment value)

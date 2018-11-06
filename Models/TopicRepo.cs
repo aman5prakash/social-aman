@@ -4,6 +4,11 @@ using System.Linq;
 using System.Collections.Generic;
 using quizartsocial_backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Net;
 
 namespace quizartsocial_backend{
 
@@ -85,6 +90,11 @@ namespace quizartsocial_backend{
                 return res1;
         }
 
+        public List<TopicC> GetAllTopics(){
+                List<TopicC> res=context.TopicT.ToList();
+                return res;
+        }
+
         public void AddTopicToDB(TopicC obj){
 
             context.TopicT.Add(obj);
@@ -111,6 +121,35 @@ namespace quizartsocial_backend{
             context.CommentT.Add(obj);
             context.SaveChanges();
 
+        }
+
+        public async Task<List<string>> fetchTopicAsync(){
+             string topicUrl = "http://172.23.238.164:8080/api/quizrt/template";
+            //The 'using' will help to prevent memory leaks.
+            //Create a new instance of HttpClient
+            List<string> lg=new List<string>();
+             using (HttpClient client = new HttpClient())
+             
+            //Setting up the response...         
+            using (HttpResponseMessage res = await client.GetAsync(topicUrl))
+            using (HttpContent content = res.Content)
+            {
+                string data = await content.ReadAsStringAsync();
+                Console.WriteLine(data+"harshaaaaaaaaaaaa");
+                //data = data.Trim( new Char[] { '[',']' } );
+                JArray json = JArray.Parse(data);
+                // Console.WriteLine(data+"jkfsfjksfjsjfhskhfks");
+                string ret;
+                if (data != null)
+                {
+                    for(int i=0;i<json.Count;i++)
+                    {
+                        ret=(string)json[i]["topicName"];
+                        lg.Add(ret);
+                    }
+                }
+                return lg;
+        }
         }
         
         
