@@ -10,7 +10,9 @@ namespace quizartsocial_backend.Models
         public DbSet<UserC> UserT{get; set;}
 
 
-      public efmodel(DbContextOptions<efmodel> options): base(options){}
+      public efmodel(DbContextOptions<efmodel> options): base(options){
+          this.Database.EnsureCreated();
+      }
 
         // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         // {

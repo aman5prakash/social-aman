@@ -29,7 +29,7 @@ namespace backEnd
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<efmodel>();
+           // services.AddDbContext<efmodel>();
 
             services.AddScoped<ITopic, TopicRepo>();
             var connString = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "Server=localhost\\SQLEXPRESS;Database=ToDoNotes_4;Trusted_Connection=True;";
