@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backEnd.Migrations
 {
-    public partial class dbsocial3 : Migration
+    public partial class social1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,14 +25,14 @@ namespace backEnd.Migrations
                 name: "UserT",
                 columns: table => new
                 {
-                    user_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    user_name = table.Column<string>(nullable: true),
-                    user_image = table.Column<string>(nullable: true)
+                    id = table.Column<string>(nullable: false),
+                    name = table.Column<string>(nullable: true),
+                    image = table.Column<string>(nullable: true),
+                    score = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserT", x => x.user_id);
+                    table.PrimaryKey("PK_UserT", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,7 +43,7 @@ namespace backEnd.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     posts = table.Column<string>(nullable: true),
                     TopicForeignKey = table.Column<int>(nullable: false),
-                    UserForeignKey = table.Column<int>(nullable: false)
+                    UserForeignKey = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,7 +58,7 @@ namespace backEnd.Migrations
                         name: "FK_PostT_UserT_UserForeignKey",
                         column: x => x.UserForeignKey,
                         principalTable: "UserT",
-                        principalColumn: "user_id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -70,7 +70,7 @@ namespace backEnd.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     comment = table.Column<string>(nullable: true),
                     PostForeignKey = table.Column<int>(nullable: false),
-                    UsercomForeignKey = table.Column<int>(nullable: false)
+                    UsercomForeignKey = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,7 +85,7 @@ namespace backEnd.Migrations
                         name: "FK_CommentT_UserT_UsercomForeignKey",
                         column: x => x.UsercomForeignKey,
                         principalTable: "UserT",
-                        principalColumn: "user_id",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 

@@ -10,9 +10,10 @@ namespace quizartsocial_backend.Models
     public class UserC{
 
             [Key]
-            public int user_id{get; set;}
-            public string user_name{get; set;}
-            public string user_image{get; set;}
+            public string id{get; set;}
+            public string name{get; set;}
+            public string image{get; set;}
+            public int score{get;set;}
             
             public List<PostC> posts{get; set;}
 

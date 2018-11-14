@@ -26,7 +26,7 @@ namespace backEnd.Migrations
 
                     b.Property<int>("PostForeignKey");
 
-                    b.Property<int>("UsercomForeignKey");
+                    b.Property<string>("UsercomForeignKey");
 
                     b.Property<string>("comment");
 
@@ -47,7 +47,7 @@ namespace backEnd.Migrations
 
                     b.Property<int>("TopicForeignKey");
 
-                    b.Property<int>("UserForeignKey");
+                    b.Property<string>("UserForeignKey");
 
                     b.Property<string>("posts");
 
@@ -77,15 +77,16 @@ namespace backEnd.Migrations
 
             modelBuilder.Entity("quizartsocial_backend.Models.UserC", b =>
                 {
-                    b.Property<int>("user_id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("id")
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("user_image");
+                    b.Property<string>("image");
 
-                    b.Property<string>("user_name");
+                    b.Property<string>("name");
 
-                    b.HasKey("user_id");
+                    b.Property<int>("score");
+
+                    b.HasKey("id");
 
                     b.ToTable("UserT");
                 });

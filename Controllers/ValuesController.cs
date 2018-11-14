@@ -147,7 +147,22 @@ namespace backEnd.Controllers
                 topicObj.AddCommentToDB(commentObj);
 
             }
+
+            
             return Ok("hjhgjdsf");
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+         public IActionResult UserInfo([FromBody] UserC value)
+        {
+                
+                
+                topicObj.AddUser(value);
+                
+                return Ok("hjhgjdsf");
+
+
         }
 
         

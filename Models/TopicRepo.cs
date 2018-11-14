@@ -54,27 +54,27 @@ namespace quizartsocial_backend{
 
         }
 
-        public List<UserC> GetAllUserImage()
-        {
-             var userFaker3 = new Faker<UserC>()
-            //.RuleFor(t => t.topic_image, f => f.Image.People());
-            .RuleFor(t => t.user_image, f => f.Internet.Avatar());
-            var users = userFaker3.Generate(1);
+        // public List<UserC> GetAllUserImage()
+        // {
+        //      var userFaker3 = new Faker<UserC>()
+        //     //.RuleFor(t => t.topic_image, f => f.Image.People());
+        //     .RuleFor(t => t.user_image, f => f.Internet.Avatar());
+        //     var users = userFaker3.Generate(1);
 
-            return users;
-        }
+        //     return users;
+        // }
         
 
-        public List<UserC> GetAllUserName()
-        {
-             var userFaker4 = new Faker<UserC>()
-            .RuleFor(t => t.user_name, f => f.Name.FirstName());
-            var myusers = userFaker4.Generate(1);
+        // public List<UserC> GetAllUserName()
+        // {
+        //      var userFaker4 = new Faker<UserC>()
+        //     .RuleFor(t => t.user_name, f => f.Name.FirstName());
+        //     var myusers = userFaker4.Generate(1);
 
 
-            return myusers;
+        //     return myusers;
 
-        }
+        // }
 
         public List<PostC> GetAllPostsIndi(string topic){
                 
@@ -88,6 +88,16 @@ namespace quizartsocial_backend{
                             .ToList();
 
                 return res1;
+        }
+
+        public void AddUser(UserC value){
+                UserC userObj = new UserC();
+                userObj.id=value.id;
+                userObj.image=value.image;
+                userObj.name=value.name;
+                if(context.UserT.FirstOrDefault( n => n.id == value.id) == null){
+                    AddUserToDB(userObj);
+                }
         }
 
         public List<TopicC> GetAllTopics(){

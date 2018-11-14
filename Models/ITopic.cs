@@ -7,9 +7,10 @@ namespace quizartsocial_backend.Models{
         List<TopicC> GetAllTopicImage();
         List<PostC> GetAllPost();
 
-        List<UserC> GetAllUserName();
-        List<UserC> GetAllUserImage();
+        // List<UserC> GetAllUserName();
+        // List<UserC> GetAllUserImage();
 
+        void AddUser(UserC obj);
         void AddTopicToDB(TopicC obj);
         void AddPostToDB(PostC obj);
         void AddUserToDB(UserC obj);

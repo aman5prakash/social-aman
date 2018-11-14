@@ -18,7 +18,7 @@ namespace quizartsocial_backend.Models
         public int TopicForeignKey { get; set; }
         // public category category { get; set; }
 
-        public int UserForeignKey { get; set; }
+        public string UserForeignKey { get; set; }
         // public user user { get; set; }
     }
 
@@ -27,10 +27,10 @@ namespace quizartsocial_backend.Models
         public int TopicForeignKey { get; set; }
         // public category category { get; set; }
 
-        public int UserForeignKey { get; set; }
+        public string UserForeignKey { get; set; }
         public string comment{get; set;}
         public int PostForeignKey { get; set; }
-        public int UsercomForeignKey { get; set; }
+        public string UsercomForeignKey { get; set; }
 
 
     }
