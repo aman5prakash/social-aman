@@ -145,6 +145,7 @@ namespace quizartsocial_backend{
                     for(int i=0;i<json.Count;i++)
                     {
                         ret=(string)json[i]["topicName"];
+                        if(!(lg.Contains(ret)))
                         lg.Add(ret);
                     }
                 }
