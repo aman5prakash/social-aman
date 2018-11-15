@@ -106,9 +106,11 @@ namespace quizartsocial_backend{
         }
 
         public void AddTopicToDB(TopicC obj){
-
-            context.TopicT.Add(obj);
-            context.SaveChanges();
+                if(context.TopicT.FirstOrDefault( n => n.topic_name == obj.topic_name) == null)
+                {
+                    context.TopicT.Add(obj);
+                    context.SaveChanges();
+                }
 
         }
 
