@@ -5,9 +5,10 @@ services:
       SA_PASSWORD: Your_password123
     image: microsoft/mssql-server-linux
     container_name: prateek-db
+    volumes:
+      - ./data/mssql:/var/opt/mssql
     ports:
       - "1433"
-    depe
   prateek-socialback:
     build: ./quizrt-social-server
     container_name: prateek-socialback
