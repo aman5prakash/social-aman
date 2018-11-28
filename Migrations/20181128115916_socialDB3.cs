@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backEnd.Migrations
 {
-    public partial class SocialDb1 : Migration
+    public partial class socialDB3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

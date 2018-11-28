@@ -57,15 +57,16 @@ namespace backEnd.Controllers
 
         
        // GET api/values/5
-        [HttpGet("[action]")]
+        [HttpGet("topics")]
         //[Route("api/values/{id}")]
-        public IActionResult Topics()
+        public IActionResult AllTopics()
         {  
                 List<Topic> allTopics=topicObj.GetAllTopics();
                 return Ok(allTopics);
         }
 
-        [Route("[action]/{title}")]
+        [HttpGet]
+        [Route("posts/{title}")]
          public IActionResult Posts(string title)
         {
                 List<Post> post_data = topicObj.GetPosts(title);
@@ -90,9 +91,10 @@ namespace backEnd.Controllers
         */
 
         //POST api/values
-        [Route("[action]")]
+        
         [HttpPost]
-        public IActionResult Topics([FromBody] Object value)
+        [Route("topics")]
+        public void AllTopics([FromBody] Object value)
         {
             Task<List<string>> topicReturns = System.Threading.Tasks.Task<string>.Run(() => topicObj.fetchTopicAsync().Result);
             List<string> topicList = topicReturns.Result;
@@ -104,35 +106,33 @@ namespace backEnd.Controllers
                   test.topic_name=topicList[i];
                   topicObj.AddTopicToDB(test);
               }
-              return Ok("hjhgjdsf");
-
         }
 
-        [HttpPost("{postEntered}")]
-        public void Post(string postEntered , [FromBody] PostComment value)
+        [HttpPost]
+        [Route("post")]
+        public void PostOfTopic(string postEntered , [FromBody] Post value)
         {
-            if(postEntered=="post")
-            {
                 Post postObj=new Post();
                 postObj.posts=value.posts;
                 postObj.UserForeignKey=value.UserForeignKey;
                 postObj.TopicForeignKey=value.TopicForeignKey;
                 topicObj.AddPostToDB(postObj);
-            }
+        }
 
-            else if(postEntered=="comment")
-            {
+        [HttpPost]
+        [Route("comment")]
+        public void CommentOfPost(string postEntered , [FromBody] Comment value)
+        {
                 Comment commentObj=new Comment();
                 commentObj.comment=value.comment;
                 commentObj.PostForeignKey=value.PostForeignKey;
                 commentObj.UsercomForeignKey=value.UsercomForeignKey;
                 topicObj.AddCommentToDB(commentObj);
-            }          
-            //return Ok("hjhgjdsf");
-        }
+        }          
+        
 
         [HttpPost]
-        [Route("[action]")]
+        [Route("user")]
          public void Users([FromBody] User value)
         {            
                 topicObj.AddUser(value);       

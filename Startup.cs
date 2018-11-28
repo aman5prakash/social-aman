@@ -30,7 +30,7 @@ namespace backEnd
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
            // services.AddDbContext<efmodel>();
-            var connString = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "Server=localhost\\SQLEXPRESS;Database=ToDoNotes_4;Trusted_Connection=True;";
+            var connString = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "Server=localhost\\SQLEXPRESS;Database=QuizRTSocialDb;Trusted_Connection=True;";
             services.AddDbContext<efmodel>(options => options.UseSqlServer(connString));
             Console.WriteLine("dfkadjakjsdkajdajdskasdjaksdsdssssssssss"+connString);
             services.AddScoped<ITopic, TopicRepo>();

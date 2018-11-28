@@ -22,16 +22,16 @@ namespace quizartsocial_backend.Models
         // public user user { get; set; }
     }
 
-    public class PostComment{
-        public string posts{get;set;}
-        public int TopicForeignKey { get; set; }
-        // public category category { get; set; }
+    // public class PostComment{
+    //     public string posts{get;set;}
+    //     public int TopicForeignKey { get; set; }
+    //     // public category category { get; set; }
 
-        public string UserForeignKey { get; set; }
-        public string comment{get; set;}
-        public int PostForeignKey { get; set; }
-        public string UsercomForeignKey { get; set; }
+    //     public string UserForeignKey { get; set; }
+    //     public string comment{get; set;}
+    //     public int PostForeignKey { get; set; }
+    //     public string UsercomForeignKey { get; set; }
 
 
-    }
+    // }
 }
