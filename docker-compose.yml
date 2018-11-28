@@ -9,7 +9,7 @@ services:
       - "1433"
     depe
   prateek-socialback:
-    build: ./Social-Back
+    build: ./quizrt-social-server
     container_name: prateek-socialback
     environment:
       SQLSERVER_HOST: Server=prateek-db;User=sa;Password=Your_password123
