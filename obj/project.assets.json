@@ -11649,11 +11649,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Administrator\\Desktop\\SOCIAL-backEnd\\backEnd.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\quizrt-social-server\\backEnd.csproj",
       "projectName": "backEnd",
-      "projectPath": "c:\\Users\\Administrator\\Desktop\\SOCIAL-backEnd\\backEnd.csproj",
+      "projectPath": "C:\\Users\\Administrator\\Desktop\\quizrt-social-server\\backEnd.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Administrator\\Desktop\\SOCIAL-backEnd\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Desktop\\quizrt-social-server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

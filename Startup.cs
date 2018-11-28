@@ -30,10 +30,11 @@ namespace backEnd
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
            // services.AddDbContext<efmodel>();
-
-            services.AddScoped<ITopic, TopicRepo>();
             var connString = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "Server=localhost\\SQLEXPRESS;Database=ToDoNotes_4;Trusted_Connection=True;";
             services.AddDbContext<efmodel>(options => options.UseSqlServer(connString));
+            Console.WriteLine("dfkadjakjsdkajdajdskasdjaksdsdssssssssss"+connString);
+            services.AddScoped<ITopic, TopicRepo>();
+            
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {

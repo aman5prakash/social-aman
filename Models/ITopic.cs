@@ -3,20 +3,20 @@ using System.Threading.Tasks;
 
 namespace quizartsocial_backend.Models{
     public interface ITopic {
-        List<TopicC> GetAllTopicName();
-        List<TopicC> GetAllTopicImage();
-        List<PostC> GetAllPost();
+        // List<Topic> GetAllTopicName();
+        // List<Topic> GetAllTopicImage();
+        // List<Post> GetAllPost();
 
         // List<UserC> GetAllUserName();
         // List<UserC> GetAllUserImage();
 
-        void AddUser(UserC obj);
-        void AddTopicToDB(TopicC obj);
-        void AddPostToDB(PostC obj);
-        void AddUserToDB(UserC obj);
-        void AddCommentToDB(CommentC obj);
-        List<PostC> GetAllPostsIndi(string a);
-        List<TopicC> GetAllTopics();
+        void AddUser(User obj);
+        void AddTopicToDB(Topic obj);
+        void AddPostToDB(Post obj);
+        void AddUserToDB(User obj);
+        void AddCommentToDB(Comment obj);
+        List<Post> GetPosts(string topicName);
+        List<Topic> GetAllTopics();
          
         Task<List<string>> fetchTopicAsync();
         // List<post> GetAllPosts();

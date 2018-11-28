@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace quizartsocial_backend.Models
 {
-    public class PostC{
+    public class Post{
 
         [Key]
         public int post_id{get; set;}
@@ -13,7 +13,7 @@ namespace quizartsocial_backend.Models
       //  public int user_id{get;set;}
 
         public string posts{get; set;}
-        public List<CommentC> comment_data{get; set;}
+        public List<Comment> comment_data{get; set;}
 
         public int TopicForeignKey { get; set; }
         // public category category { get; set; }

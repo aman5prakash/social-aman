@@ -20,10 +20,10 @@ namespace quizartsocial_backend{
             this.context=_context;
         }
 
-
-        public List<TopicC> GetAllTopicImage()
+        /*
+        public List<Topic> GetAllTopicImage()
         {
-             var userFaker = new Faker<TopicC>()
+             var userFaker = new Faker<Topic>()
             //.RuleFor(t => t.topic_image, f => f.Image.People());
             .RuleFor(t => t.topic_image, f => f.Internet.Avatar());
             var users = userFaker.Generate(1);
@@ -32,9 +32,9 @@ namespace quizartsocial_backend{
         }
         
 
-        public List<TopicC> GetAllTopicName()
+        public List<Topic> GetAllTopicName()
         {
-             var userFaker1 = new Faker<TopicC>()
+             var userFaker1 = new Faker<Topic>()
             .RuleFor(t => t.topic_name, f => f.Name.FirstName());
             var myusers = userFaker1.Generate(1);
 
@@ -43,9 +43,9 @@ namespace quizartsocial_backend{
 
         }
 
-        public List<PostC> GetAllPost()
+        public List<Post> GetAllPost()
         {
-             var userFaker2 = new Faker<PostC>()
+             var userFaker2 = new Faker<Post>()
             .RuleFor(t => t.posts, f => f.Lorem.Sentence());
             var myusers = userFaker2.Generate(1);
 
@@ -53,6 +53,7 @@ namespace quizartsocial_backend{
             return myusers;
 
         }
+        */
 
         // public List<UserC> GetAllUserImage()
         // {
@@ -76,13 +77,13 @@ namespace quizartsocial_backend{
 
         // }
 
-        public List<PostC> GetAllPostsIndi(string topic){
+        public List<Post> GetPosts(string topic){
                 
-                List<TopicC> res=context.TopicT
+                List<Topic> res=context.Topics
                             .Where(s=>(s.topic_name==topic))
                             .ToList();
                 int id=res[0].topic_id;
-                List<PostC> res1=context.PostT
+                List<Post> res1=context.Posts
                             .Where(s=>(s.TopicForeignKey==id))
                             .Include("comment_data")
                             .ToList();
@@ -90,53 +91,53 @@ namespace quizartsocial_backend{
                 return res1;
         }
 
-        public void AddUser(UserC value){
-                UserC userObj = new UserC();
+        public void AddUser(User value){
+                User userObj = new User();
                 userObj.id=value.id;
                 userObj.image=value.image;
                 userObj.name=value.name;
-                if(context.UserT.FirstOrDefault( n => n.id == value.id) == null){
+                if(context.Users.FirstOrDefault( n => n.id == value.id) == null){
                     AddUserToDB(userObj);
                 }
         }
 
-        public List<TopicC> GetAllTopics(){
-                List<TopicC> res=context.TopicT.ToList();
+        public List<Topic> GetAllTopics(){
+                List<Topic> res=context.Topics.ToList();
                 return res;
         }
 
-        public void AddTopicToDB(TopicC obj){
-                if(context.TopicT.FirstOrDefault( n => n.topic_name == obj.topic_name) == null)
+        public void AddTopicToDB(Topic obj){
+                if(context.Topics.FirstOrDefault( n => n.topic_name == obj.topic_name) == null)
                 {
-                    context.TopicT.Add(obj);
+                    context.Topics.Add(obj);
                     context.SaveChanges();
                 }
 
         }
 
-         public void AddPostToDB(PostC obj){
+         public void AddPostToDB(Post obj){
 
-            context.PostT.Add(obj);
+            context.Posts.Add(obj);
             context.SaveChanges();
 
         }
 
-         public void AddUserToDB(UserC obj){
+         public void AddUserToDB(User obj){
 
-            context.UserT.Add(obj);
+            context.Users.Add(obj);
             context.SaveChanges();
 
         }
 
-        public void AddCommentToDB(CommentC obj){
+        public void AddCommentToDB(Comment obj){
 
-            context.CommentT.Add(obj);
+            context.Comments.Add(obj);
             context.SaveChanges();
 
         }
 
         public async Task<List<string>> fetchTopicAsync(){
-             string topicUrl = "http://172.23.238.164:8080/api/quizrt/template";
+             string topicUrl = "http://172.23.238.164:8080/api/quizrt/topics";
             //The 'using' will help to prevent memory leaks.
             //Create a new instance of HttpClient
             List<string> lg=new List<string>();
@@ -147,18 +148,30 @@ namespace quizartsocial_backend{
             using (HttpContent content = res.Content)
             {
                 string data = await content.ReadAsStringAsync();
-                Console.WriteLine(data+"harshaaaaaaaaaaaa");
+               // Console.WriteLine(data+"prateeeeeeeeeeeeeeeeeeeeeeek");
                 //data = data.Trim( new Char[] { '[',']' } );
-                JArray json = JArray.Parse(data);
-                // Console.WriteLine(data+"jkfsfjksfjsjfhskhfks");
-                string ret;
-                if (data != null)
-                {
+                 JArray json = JArray.Parse(data);
+                 // Console.WriteLine(json+"jkfsfjksfjsjfhskhfks");
+                // string ret;
+                // if (data != null)
+                // {
+                //     for(int i=0;i<json.Count;i++)
+                //     {
+                //         ret=(string)json[i]["topicName"];
+                //         if(!(lg.Contains(ret)))
+                //         lg.Add(ret);
+                //     }
+                // }
+                string value;
+                if(data!=null){
                     for(int i=0;i<json.Count;i++)
                     {
-                        ret=(string)json[i]["topicName"];
-                        if(!(lg.Contains(ret)))
-                        lg.Add(ret);
+                        value=(string)json[i];
+                        if(!(lg.Contains(value)))
+                        {
+                            lg.Add(value);
+                        }
+                    //    Console.WriteLine(json[i]);
                     }
                 }
                 return lg;

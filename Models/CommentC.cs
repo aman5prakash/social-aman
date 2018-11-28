@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace quizartsocial_backend.Models
 {
-    public class CommentC{
+    public class Comment{
 
         [Key]
         public int comment_id{get; set;}

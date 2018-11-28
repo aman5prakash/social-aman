@@ -9,8 +9,8 @@ using quizartsocial_backend.Models;
 namespace backEnd.Migrations
 {
     [DbContext(typeof(efmodel))]
-    [Migration("20181114085216_social1")]
-    partial class social1
+    [Migration("20181128090835_SocialDb1")]
+    partial class SocialDb1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace backEnd.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("quizartsocial_backend.Models.CommentC", b =>
+            modelBuilder.Entity("quizartsocial_backend.Models.Comment", b =>
                 {
                     b.Property<int>("comment_id")
                         .ValueGeneratedOnAdd()
@@ -38,10 +38,10 @@ namespace backEnd.Migrations
 
                     b.HasIndex("UsercomForeignKey");
 
-                    b.ToTable("CommentT");
+                    b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("quizartsocial_backend.Models.PostC", b =>
+            modelBuilder.Entity("quizartsocial_backend.Models.Post", b =>
                 {
                     b.Property<int>("post_id")
                         .ValueGeneratedOnAdd()
@@ -59,10 +59,10 @@ namespace backEnd.Migrations
 
                     b.HasIndex("UserForeignKey");
 
-                    b.ToTable("PostT");
+                    b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("quizartsocial_backend.Models.TopicC", b =>
+            modelBuilder.Entity("quizartsocial_backend.Models.Topic", b =>
                 {
                     b.Property<int>("topic_id")
                         .ValueGeneratedOnAdd()
@@ -74,10 +74,10 @@ namespace backEnd.Migrations
 
                     b.HasKey("topic_id");
 
-                    b.ToTable("TopicT");
+                    b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("quizartsocial_backend.Models.UserC", b =>
+            modelBuilder.Entity("quizartsocial_backend.Models.User", b =>
                 {
                     b.Property<string>("id")
                         .ValueGeneratedOnAdd();
@@ -90,30 +90,30 @@ namespace backEnd.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("UserT");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("quizartsocial_backend.Models.CommentC", b =>
+            modelBuilder.Entity("quizartsocial_backend.Models.Comment", b =>
                 {
-                    b.HasOne("quizartsocial_backend.Models.PostC")
+                    b.HasOne("quizartsocial_backend.Models.Post")
                         .WithMany("comment_data")
                         .HasForeignKey("PostForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("quizartsocial_backend.Models.UserC")
+                    b.HasOne("quizartsocial_backend.Models.User")
                         .WithMany("comment_data")
                         .HasForeignKey("UsercomForeignKey")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("quizartsocial_backend.Models.PostC", b =>
+            modelBuilder.Entity("quizartsocial_backend.Models.Post", b =>
                 {
-                    b.HasOne("quizartsocial_backend.Models.TopicC")
+                    b.HasOne("quizartsocial_backend.Models.Topic")
                         .WithMany("posts")
                         .HasForeignKey("TopicForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("quizartsocial_backend.Models.UserC")
+                    b.HasOne("quizartsocial_backend.Models.User")
                         .WithMany("posts")
                         .HasForeignKey("UserForeignKey")
                         .OnDelete(DeleteBehavior.Restrict);

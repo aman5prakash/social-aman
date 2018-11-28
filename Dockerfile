@@ -1,43 +1,13 @@
-# FROM microsoft/dotnet:sdk AS build-env
-# WORKDIR /app
+FROM microsoft/dotnet:sdk AS build-env
 
-# # Copy csproj and restore as distinct layers
-# COPY *.csproj ./
-# RUN dotnet restore
+WORKDIR /socialback
 
-# # # RUN dotnet build
-# # EXPOSE 80/tcp
-# # FROM microsoft/mssql-server-linux
-# # RUN dotnet ef database update
-# # RUN dotnet run --server.urls http://*:80
+COPY . .
 
-# # Copy everything else and build
-# COPY . ./
-# RUN dotnet publish -c Release -o out
+CMD  dotnet restore
 
-# # Build runtime image
-# FROM microsoft/dotnet:aspnetcore-runtime
-# WORKDIR /app
-# COPY --from=build-env /app/out .
-# ENTRYPOINT ["dotnet", "QuizRTapi.dll"]
+RUN dotnet build
 
-#############
-
-# # FROM microsoft/aspnetcore-build:lts
-
-FROM microsoft/dotnet
-COPY . /socialapp
-WORKDIR /socialapp
-RUN ["dotnet", "restore"]
-RUN ["dotnet", "build"]
-# EXPOSE 80/tcp
 RUN chmod +x ./entrypoint.sh
+
 CMD /bin/bash ./entrypoint.sh
-
-##########################
-
-# FROM microsoft/dotnet:runtime
-
-# WORKDIR /dotnetapp
-# COPY out .
-# ENTRYPOINT ["dotnet", "QuizRTapi.dll"]

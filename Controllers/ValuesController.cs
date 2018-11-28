@@ -8,13 +8,12 @@ using quizartsocial_backend.Models;
 
 namespace backEnd.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
         ITopic topicObj;
         
-
         public ValuesController(ITopic _topicObj){
             this.topicObj=_topicObj;
         }
@@ -60,29 +59,26 @@ namespace backEnd.Controllers
        // GET api/values/5
         [HttpGet("[action]")]
         //[Route("api/values/{id}")]
-        public IActionResult GetTopics()
-        {
-            
-                List<TopicC> allTopics=topicObj.GetAllTopics();
+        public IActionResult Topics()
+        {  
+                List<Topic> allTopics=topicObj.GetAllTopics();
                 return Ok(allTopics);
-            
-
         }
+
         [Route("[action]/{title}")]
-        
-         public IActionResult posts(string title)
+         public IActionResult Posts(string title)
         {
-             if(title=="occupation")
-             {
-                List<PostC> post_indiv = topicObj.GetAllPostsIndi(title);
-                return Ok(post_indiv);
-                                         
-             }
-             return BadRequest("Bad :p ");
-
+                List<Post> post_data = topicObj.GetPosts(title);
+                if(post_data.Any())
+                {
+                    return Ok(post_data);                      
+                }
+                else
+                {
+                    return BadRequest(":p");
+                } 
         }
-
-        
+            // return BadRequest("Bad :p ");
 
         // GET api/values/5
         /*
@@ -94,30 +90,17 @@ namespace backEnd.Controllers
         */
 
         //POST api/values
+        [Route("[action]")]
         [HttpPost]
-        public IActionResult Post([FromBody] Object value)
+        public IActionResult Topics([FromBody] Object value)
         {
-            // Console.WriteLine("hjhgjdsf");
-            // UserC userObj=new UserC();
-            // userObj.user_name="Prateek";
-            // UserC userObj1=new UserC();
-            // userObj1.user_name="Harsha";
-            // UserC userObj2=new UserC();
-            // userObj2.user_name="Kuldeep";
-            // topicObj.AddUserToDB(userObj);
-            // topicObj.AddUserToDB(userObj1);
-            // topicObj.AddUserToDB(userObj2);
-            // TopicC testTopicObj=new TopicC();
-            // testTopicObj.topic_name="Cricket";
-            // topicObj.AddTopicToDB(testTopicObj);
-           // Task<List<string>> str=topicObj.fetchTopicAsync();
             Task<List<string>> topicReturns = System.Threading.Tasks.Task<string>.Run(() => topicObj.fetchTopicAsync().Result);
             List<string> topicList = topicReturns.Result;
             // JObject jo = (JObject)(value);
             // string ttt = jo["topicName"].ToString();
             // Console.WriteLine(ttt);
               for(int i=0;i<topicList.Count;i++){
-                  TopicC test=new TopicC();
+                  Topic test=new Topic();
                   test.topic_name=topicList[i];
                   topicObj.AddTopicToDB(test);
               }
@@ -126,53 +109,41 @@ namespace backEnd.Controllers
         }
 
         [HttpPost("{postEntered}")]
-        public IActionResult Post(string postEntered , [FromBody] PostComment value)
+        public void Post(string postEntered , [FromBody] PostComment value)
         {
             if(postEntered=="post")
             {
-                PostC postObj=new PostC();
+                Post postObj=new Post();
                 postObj.posts=value.posts;
                 postObj.UserForeignKey=value.UserForeignKey;
                 postObj.TopicForeignKey=value.TopicForeignKey;
                 topicObj.AddPostToDB(postObj);
-
             }
 
             else if(postEntered=="comment")
             {
-                CommentC commentObj=new CommentC();
+                Comment commentObj=new Comment();
                 commentObj.comment=value.comment;
                 commentObj.PostForeignKey=value.PostForeignKey;
                 commentObj.UsercomForeignKey=value.UsercomForeignKey;
                 topicObj.AddCommentToDB(commentObj);
-
-            }
-
-            
-            return Ok("hjhgjdsf");
+            }          
+            //return Ok("hjhgjdsf");
         }
 
         [HttpPost]
         [Route("[action]")]
-         public IActionResult UserInfo([FromBody] UserC value)
-        {
-                
-                
-                topicObj.AddUser(value);
-                
-                return Ok("hjhgjdsf");
-
-
+         public void Users([FromBody] User value)
+        {            
+                topicObj.AddUser(value);       
+                //return Ok("hjhgjdsf");
         }
-
-        
 
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
-
 
         // DELETE api/values/5
         [HttpDelete("{id}")]

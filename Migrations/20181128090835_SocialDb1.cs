@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backEnd.Migrations
 {
-    public partial class social1 : Migration
+    public partial class SocialDb1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "TopicT",
+                name: "Topics",
                 columns: table => new
                 {
                     topic_id = table.Column<int>(nullable: false)
@@ -18,11 +18,11 @@ namespace backEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TopicT", x => x.topic_id);
+                    table.PrimaryKey("PK_Topics", x => x.topic_id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserT",
+                name: "Users",
                 columns: table => new
                 {
                     id = table.Column<string>(nullable: false),
@@ -32,11 +32,11 @@ namespace backEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserT", x => x.id);
+                    table.PrimaryKey("PK_Users", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostT",
+                name: "Posts",
                 columns: table => new
                 {
                     post_id = table.Column<int>(nullable: false)
@@ -47,23 +47,23 @@ namespace backEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostT", x => x.post_id);
+                    table.PrimaryKey("PK_Posts", x => x.post_id);
                     table.ForeignKey(
-                        name: "FK_PostT_TopicT_TopicForeignKey",
+                        name: "FK_Posts_Topics_TopicForeignKey",
                         column: x => x.TopicForeignKey,
-                        principalTable: "TopicT",
+                        principalTable: "Topics",
                         principalColumn: "topic_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PostT_UserT_UserForeignKey",
+                        name: "FK_Posts_Users_UserForeignKey",
                         column: x => x.UserForeignKey,
-                        principalTable: "UserT",
+                        principalTable: "Users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CommentT",
+                name: "Comments",
                 columns: table => new
                 {
                     comment_id = table.Column<int>(nullable: false)
@@ -74,55 +74,55 @@ namespace backEnd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CommentT", x => x.comment_id);
+                    table.PrimaryKey("PK_Comments", x => x.comment_id);
                     table.ForeignKey(
-                        name: "FK_CommentT_PostT_PostForeignKey",
+                        name: "FK_Comments_Posts_PostForeignKey",
                         column: x => x.PostForeignKey,
-                        principalTable: "PostT",
+                        principalTable: "Posts",
                         principalColumn: "post_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CommentT_UserT_UsercomForeignKey",
+                        name: "FK_Comments_Users_UsercomForeignKey",
                         column: x => x.UsercomForeignKey,
-                        principalTable: "UserT",
+                        principalTable: "Users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CommentT_PostForeignKey",
-                table: "CommentT",
+                name: "IX_Comments_PostForeignKey",
+                table: "Comments",
                 column: "PostForeignKey");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CommentT_UsercomForeignKey",
-                table: "CommentT",
+                name: "IX_Comments_UsercomForeignKey",
+                table: "Comments",
                 column: "UsercomForeignKey");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostT_TopicForeignKey",
-                table: "PostT",
+                name: "IX_Posts_TopicForeignKey",
+                table: "Posts",
                 column: "TopicForeignKey");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostT_UserForeignKey",
-                table: "PostT",
+                name: "IX_Posts_UserForeignKey",
+                table: "Posts",
                 column: "UserForeignKey");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CommentT");
+                name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "PostT");
+                name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "TopicT");
+                name: "Topics");
 
             migrationBuilder.DropTable(
-                name: "UserT");
+                name: "Users");
         }
     }
 }

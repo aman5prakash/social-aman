@@ -1,0 +1,20 @@
+services:
+  prateek-db:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Your_password123
+    image: microsoft/mssql-server-linux
+    container_name: prateek-db
+    ports:
+      - "1433"
+    depe
+  prateek-socialback:
+    build: ./Social-Back
+    container_name: prateek-socialback
+    environment:
+      SQLSERVER_HOST: Server=prateek-db;User=sa;Password=Your_password123
+    links:
+      - prateek-db
+    ports:
+      - "8089:5000"
+version: "3"
