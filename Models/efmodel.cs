@@ -13,10 +13,10 @@ namespace quizartsocial_backend.Models
           this.Database.EnsureCreated();
       }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-           optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=QuizRTSocialDb;Trusted_Connection=True;");
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //    optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=QuizRTSocialDb;Trusted_Connection=True;");
+        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
             modelBuilder.Entity<Topic>().HasMany(n => n.posts).WithOne().HasForeignKey(c => c.TopicForeignKey);
