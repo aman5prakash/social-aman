@@ -11,10 +11,11 @@ namespace quizartsocial_backend.Models{
         // List<UserC> GetAllUserImage();
 
         void AddUser(User obj);
-        void AddTopicToDB(Topic obj);
-        void AddPostToDB(Post obj);
-        void AddUserToDB(User obj);
-        void AddCommentToDB(Comment obj);
+        Task AddTopicToDB(Topic obj);
+        Task AddPostToDB(Post obj);
+        // void AddUserToDB(User obj);
+        Task AddUserToDB(User obj);
+        Task AddCommentToDB(Comment obj);
         List<Post> GetPosts(string topicName);
         List<Topic> GetAllTopics();
          

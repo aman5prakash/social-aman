@@ -106,7 +106,7 @@ namespace quizartsocial_backend{
                 return res;
         }
 
-        public void AddTopicToDB(Topic obj){
+        public async Task AddTopicToDB(Topic obj){
                 if(context.Topics.FirstOrDefault( n => n.topic_name == obj.topic_name) == null)
                 {
                     context.Topics.Add(obj);
@@ -115,21 +115,20 @@ namespace quizartsocial_backend{
 
         }
 
-         public void AddPostToDB(Post obj){
+        public async Task AddPostToDB(Post obj){
 
             context.Posts.Add(obj);
             context.SaveChanges();
 
         }
 
-         public void AddUserToDB(User obj){
-
+        public async Task AddUserToDB(User obj){
             context.Users.Add(obj);
             context.SaveChanges();
-
         }
 
-        public void AddCommentToDB(Comment obj){
+
+        public async Task AddCommentToDB(Comment obj){
 
             context.Comments.Add(obj);
             context.SaveChanges();
