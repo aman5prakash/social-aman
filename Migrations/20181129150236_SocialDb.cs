@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace backEnd.Migrations
 {
-    public partial class socialDB3 : Migration
+    public partial class SocialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,54 +11,54 @@ namespace backEnd.Migrations
                 name: "Topics",
                 columns: table => new
                 {
-                    topic_id = table.Column<int>(nullable: false)
+                    topicId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    topic_name = table.Column<string>(nullable: true),
-                    topic_image = table.Column<string>(nullable: true)
+                    topicName = table.Column<string>(nullable: true),
+                    topicImage = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Topics", x => x.topic_id);
+                    table.PrimaryKey("PK_Topics", x => x.topicId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    id = table.Column<string>(nullable: false),
-                    name = table.Column<string>(nullable: true),
-                    image = table.Column<string>(nullable: true),
+                    userId = table.Column<string>(nullable: false),
+                    userName = table.Column<string>(nullable: true),
+                    userImage = table.Column<string>(nullable: true),
                     score = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.id);
+                    table.PrimaryKey("PK_Users", x => x.userId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
-                    post_id = table.Column<int>(nullable: false)
+                    postId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    posts = table.Column<string>(nullable: true),
-                    TopicForeignKey = table.Column<int>(nullable: false),
-                    UserForeignKey = table.Column<string>(nullable: true)
+                    post = table.Column<string>(nullable: true),
+                    topicId = table.Column<int>(nullable: false),
+                    userId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.post_id);
+                    table.PrimaryKey("PK_Posts", x => x.postId);
                     table.ForeignKey(
-                        name: "FK_Posts_Topics_TopicForeignKey",
-                        column: x => x.TopicForeignKey,
+                        name: "FK_Posts_Topics_topicId",
+                        column: x => x.topicId,
                         principalTable: "Topics",
-                        principalColumn: "topic_id",
+                        principalColumn: "topicId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Posts_Users_UserForeignKey",
-                        column: x => x.UserForeignKey,
+                        name: "FK_Posts_Users_userId",
+                        column: x => x.userId,
                         principalTable: "Users",
-                        principalColumn: "id",
+                        principalColumn: "userId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -66,48 +66,48 @@ namespace backEnd.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    comment_id = table.Column<int>(nullable: false)
+                    commentId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     comment = table.Column<string>(nullable: true),
-                    PostForeignKey = table.Column<int>(nullable: false),
-                    UsercomForeignKey = table.Column<string>(nullable: true)
+                    postId = table.Column<int>(nullable: false),
+                    userId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.comment_id);
+                    table.PrimaryKey("PK_Comments", x => x.commentId);
                     table.ForeignKey(
-                        name: "FK_Comments_Posts_PostForeignKey",
-                        column: x => x.PostForeignKey,
+                        name: "FK_Comments_Posts_postId",
+                        column: x => x.postId,
                         principalTable: "Posts",
-                        principalColumn: "post_id",
+                        principalColumn: "postId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comments_Users_UsercomForeignKey",
-                        column: x => x.UsercomForeignKey,
+                        name: "FK_Comments_Users_userId",
+                        column: x => x.userId,
                         principalTable: "Users",
-                        principalColumn: "id",
+                        principalColumn: "userId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_PostForeignKey",
+                name: "IX_Comments_postId",
                 table: "Comments",
-                column: "PostForeignKey");
+                column: "postId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UsercomForeignKey",
+                name: "IX_Comments_userId",
                 table: "Comments",
-                column: "UsercomForeignKey");
+                column: "userId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_TopicForeignKey",
+                name: "IX_Posts_topicId",
                 table: "Posts",
-                column: "TopicForeignKey");
+                column: "topicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_UserForeignKey",
+                name: "IX_Posts_userId",
                 table: "Posts",
-                column: "UserForeignKey");
+                column: "userId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

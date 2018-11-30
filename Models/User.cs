@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace quizartsocial_backend.Models
 {
-    public class User{
-
-            [Key]
-            public string id{get; set;}
-            public string name{get; set;}
-            public string image{get; set;}
-            public int score{get;set;}
-            public List<Post> posts{get; set;}
-            public List<Comment> comment_data{get; set;}
+    public class User
+    {
+        [Key]
+        public string userId { get; set; }
+        public string userName { get; set; }
+        public string userImage { get; set; }
+        public int score { get; set; }
+        public List<Post> posts { get; set; }
+        public List<Comment> comments { get; set; }
 
     }
 }

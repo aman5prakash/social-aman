@@ -10,14 +10,65 @@ namespace backEnd.Controllers
 {
     [Route("api")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class SocialController : ControllerBase
     {
         ITopic topicObj;
-        
-        public ValuesController(ITopic _topicObj){
+        public SocialController(ITopic _topicObj)
+        {
             this.topicObj=_topicObj;
         }
-        // GET api/values
+       
+        [HttpGet("topics")]
+        public async Task<IActionResult> GetTopics()
+        {  
+            List<Topic> allTopics = await topicObj.FetchTopicsFromDbAsync();
+            return Ok(allTopics);
+        }
+
+        [HttpGet]
+        [Route("posts/{topicName}")]
+        public async Task<IActionResult> GetPosts(string topicName)
+        {
+            List<Post> posts = await topicObj.GetPostsAsync(topicName);
+            if(posts.Any())
+            {
+                return Ok(posts);                      
+            }
+            else
+            {
+                return NotFound();
+            } 
+        }
+
+        [HttpPost]
+        [Route("post")]
+        public async Task<IActionResult> CreatePost([FromBody] Post post)
+        {
+            await topicObj.AddPostToDBAsync(post);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("comment")]
+        public async Task<IActionResult> CreateComment([FromBody] Comment comment)
+        {
+            await topicObj.AddCommentToDBAsync(comment);
+            return Ok();
+        }          
+        
+        [HttpPost]
+        [Route("user")]
+        public IActionResult CreateUser([FromBody] User value)
+        {            
+            topicObj.AddUserToDBAsync(value);
+            return Ok();
+        }
+    }
+}
+
+
+
+// GET api/values
         
         // [HttpGet]
         // public IActionResult Get()
@@ -53,35 +104,9 @@ namespace backEnd.Controllers
         //    return Ok(lg);
          
         // }
-        
-
-        
-       // GET api/values/5
-        [HttpGet("topics")]
         //[Route("api/values/{id}")]
-        public IActionResult AllTopics()
-        {  
-                List<Topic> allTopics=topicObj.GetAllTopics();
-                return Ok(allTopics);
-        }
-
-        [HttpGet]
-        [Route("posts/{title}")]
-         public IActionResult Posts(string title)
-        {
-                List<Post> post_data = topicObj.GetPosts(title);
-                if(post_data.Any())
-                {
-                    return Ok(post_data);                      
-                }
-                else
-                {
-                    return BadRequest(":p");
-                } 
-        }
-            // return BadRequest("Bad :p ");
-
         // GET api/values/5
+         // GET api/values/5
         /*
         [HttpGet("{id:string}")]
         public ActionResult<string> Get(int id)
@@ -89,66 +114,33 @@ namespace backEnd.Controllers
             return "value";
         }
         */
+         // PUT api/values/5
+         
+        // [HttpPut("{id}")]
+        // public void Put(int id, [FromBody] string value)
+        // {
+        // }
 
-        //POST api/values
+        // // DELETE api/values/5
+        // [HttpDelete("{id}")]
+        // public void Delete(int id)
+        // {
+        // }
+
+        //   [HttpPost]
+        // [Route("topics")]
+        // public IActionResult AllTopics([FromBody] Object value)
+        // {
+        //     Task<List<string>> topicReturns = System.Threading.Tasks.Task<string>.Run(() => topicObj.fetchTopicAsync().Result);
+        //     List<string> topicList = topicReturns.Result;
+        //     // JObject jo = (JObject)(value);
+        //     // string ttt = jo["topicName"].ToString();
+        //     // Console.WriteLine(ttt);
+        //       for(int i=0;i<topicList.Count;i++){
+        //           Topic test=new Topic();
+        //           test.topicName=topicList[i];
+        //           topicObj.AddTopicToDB(test);
+        //       }
+        //       return Ok();
+        // }
         
-        [HttpPost]
-        [Route("topics")]
-        public void AllTopics([FromBody] Object value)
-        {
-            Task<List<string>> topicReturns = System.Threading.Tasks.Task<string>.Run(() => topicObj.fetchTopicAsync().Result);
-            List<string> topicList = topicReturns.Result;
-            // JObject jo = (JObject)(value);
-            // string ttt = jo["topicName"].ToString();
-            // Console.WriteLine(ttt);
-              for(int i=0;i<topicList.Count;i++){
-                  Topic test=new Topic();
-                  test.topic_name=topicList[i];
-                  topicObj.AddTopicToDB(test);
-              }
-        }
-
-        [HttpPost]
-        [Route("post")]
-        public void PostOfTopic(string postEntered , [FromBody] Post value)
-        {
-                Post postObj=new Post();
-                postObj.posts=value.posts;
-                postObj.UserForeignKey=value.UserForeignKey;
-                postObj.TopicForeignKey=value.TopicForeignKey;
-                topicObj.AddPostToDB(postObj);
-        }
-
-        [HttpPost]
-        [Route("comment")]
-        public void CommentOfPost(string postEntered , [FromBody] Comment value)
-        {
-                Comment commentObj=new Comment();
-                commentObj.comment=value.comment;
-                commentObj.PostForeignKey=value.PostForeignKey;
-                commentObj.UsercomForeignKey=value.UsercomForeignKey;
-                topicObj.AddCommentToDB(commentObj);
-        }          
-        
-
-        [HttpPost]
-        [Route("user")]
-         public void Users([FromBody] User value)
-        {            
-                topicObj.AddUser(value);       
-                //return Ok("hjhgjdsf");
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-    }
-}

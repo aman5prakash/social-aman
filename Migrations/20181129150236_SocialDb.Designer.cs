@@ -8,9 +8,9 @@ using quizartsocial_backend.Models;
 
 namespace backEnd.Migrations
 {
-    [DbContext(typeof(efmodel))]
-    [Migration("20181128115916_socialDB3")]
-    partial class socialDB3
+    [DbContext(typeof(SocialContext))]
+    [Migration("20181129150236_SocialDb")]
+    partial class SocialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,73 +22,73 @@ namespace backEnd.Migrations
 
             modelBuilder.Entity("quizartsocial_backend.Models.Comment", b =>
                 {
-                    b.Property<int>("comment_id")
+                    b.Property<int>("commentId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("PostForeignKey");
-
-                    b.Property<string>("UsercomForeignKey");
-
                     b.Property<string>("comment");
 
-                    b.HasKey("comment_id");
+                    b.Property<int>("postId");
 
-                    b.HasIndex("PostForeignKey");
+                    b.Property<string>("userId");
 
-                    b.HasIndex("UsercomForeignKey");
+                    b.HasKey("commentId");
+
+                    b.HasIndex("postId");
+
+                    b.HasIndex("userId");
 
                     b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("quizartsocial_backend.Models.Post", b =>
                 {
-                    b.Property<int>("post_id")
+                    b.Property<int>("postId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("TopicForeignKey");
+                    b.Property<string>("post");
 
-                    b.Property<string>("UserForeignKey");
+                    b.Property<int>("topicId");
 
-                    b.Property<string>("posts");
+                    b.Property<string>("userId");
 
-                    b.HasKey("post_id");
+                    b.HasKey("postId");
 
-                    b.HasIndex("TopicForeignKey");
+                    b.HasIndex("topicId");
 
-                    b.HasIndex("UserForeignKey");
+                    b.HasIndex("userId");
 
                     b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("quizartsocial_backend.Models.Topic", b =>
                 {
-                    b.Property<int>("topic_id")
+                    b.Property<int>("topicId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("topic_image");
+                    b.Property<string>("topicImage");
 
-                    b.Property<string>("topic_name");
+                    b.Property<string>("topicName");
 
-                    b.HasKey("topic_id");
+                    b.HasKey("topicId");
 
                     b.ToTable("Topics");
                 });
 
             modelBuilder.Entity("quizartsocial_backend.Models.User", b =>
                 {
-                    b.Property<string>("id")
+                    b.Property<string>("userId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("image");
-
-                    b.Property<string>("name");
 
                     b.Property<int>("score");
 
-                    b.HasKey("id");
+                    b.Property<string>("userImage");
+
+                    b.Property<string>("userName");
+
+                    b.HasKey("userId");
 
                     b.ToTable("Users");
                 });
@@ -96,13 +96,13 @@ namespace backEnd.Migrations
             modelBuilder.Entity("quizartsocial_backend.Models.Comment", b =>
                 {
                     b.HasOne("quizartsocial_backend.Models.Post")
-                        .WithMany("comment_data")
-                        .HasForeignKey("PostForeignKey")
+                        .WithMany("comments")
+                        .HasForeignKey("postId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("quizartsocial_backend.Models.User")
-                        .WithMany("comment_data")
-                        .HasForeignKey("UsercomForeignKey")
+                        .WithMany("comments")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -110,12 +110,12 @@ namespace backEnd.Migrations
                 {
                     b.HasOne("quizartsocial_backend.Models.Topic")
                         .WithMany("posts")
-                        .HasForeignKey("TopicForeignKey")
+                        .HasForeignKey("topicId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("quizartsocial_backend.Models.User")
                         .WithMany("posts")
-                        .HasForeignKey("UserForeignKey")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

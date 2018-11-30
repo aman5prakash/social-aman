@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,15 +6,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace quizartsocial_backend.Models
 {
-    public class Topic{
-
-            [Key]
-            public int topic_id{get; set;}
-            public string topic_name{get; set;}
-            public string topic_image{get; set;}
-            public List<Post> posts{get; set;}
-            
-
-
+    public class Topic
+    {
+        [Key]
+        public int topicId { get; set; }
+        public string topicName { get; set; }
+        public string topicImage { get; set; }
+        public List<Post> posts { get; set; }
     }
 }
