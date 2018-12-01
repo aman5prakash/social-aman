@@ -1,3 +1,4 @@
+version: "3.5"
 services:
   prateek-db:
     environment:
@@ -9,7 +10,7 @@ services:
     ports:
       - "1433"
     networks:
-      - quizrt-question-generator-server_default
+      - quizrt-social-server-network
   prateek-socialback:
     build: .
     environment:
@@ -19,19 +20,19 @@ services:
     ports:
       - "8089:5000"
     networks:
-      - quizrt-question-generator-server_default
+      - quizrt-social-server-network
   neo4j:
     image: neo4j:latest
     ports:
-      - "17474:7474"
-      - "17687:7687"
+      - "7474"
+      - "7687"
     networks: 
-      - quizrt-question-generator-server_default
+      - quizrt-social-server-network
     environment:
       - NEO4J_AUTH=neo4j/qwertyuiop
       - NEO4J_dbms_connector_http_listen__address=:7474
       - NEO4J_dbms_connector_bolt_listen__address=:7687
 networks:
-  quizrt-question-generator-server_default:
+  quizrt-social-server-network:
+    name: quizrt-network
     external: true
-version: "3.5"
