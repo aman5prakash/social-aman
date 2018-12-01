@@ -10,7 +10,7 @@ services:
     ports:
       - "1433"
   prateek-socialback:
-    build: ./quizrt-social-server
+    build: .
     container_name: prateek-socialback
     environment:
       SQLSERVER_HOST: Server=prateek-db;User=sa;Password=Your_password123
@@ -18,4 +18,13 @@ services:
       - prateek-db
     ports:
       - "8089:5000"
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - "17474:7474"
+      - "17687:7687"
+    environment:
+      - NEO4J_AUTH=neo4j/qwertyuiop
+      - NEO4J_dbms_connector_http_listen__address=:7474
+      - NEO4J_dbms_connector_bolt_listen__address=:7687
 version: "3"
