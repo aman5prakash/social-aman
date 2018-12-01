@@ -18,6 +18,8 @@ services:
       - prateek-db
     ports:
       - "8089:5000"
+    networks:
+      - social_network
   neo4j:
     image: neo4j:latest
     ports:
@@ -27,4 +29,7 @@ services:
       - NEO4J_AUTH=neo4j/qwertyuiop
       - NEO4J_dbms_connector_http_listen__address=:7474
       - NEO4J_dbms_connector_bolt_listen__address=:7687
+networks:
+  social_network:
+    external: true
 version: "3"
