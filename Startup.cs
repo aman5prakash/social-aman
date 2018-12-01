@@ -34,6 +34,8 @@ namespace backEnd
             services.AddDbContext<SocialContext>(options => options.UseSqlServer(connString));
             Console.WriteLine("dfkadjakjsdkajdajdskasdjaksdsdssssssssss"+connString);
             services.AddScoped<ITopic, TopicRepo>();
+            services.AddSingleton<GraphDbConnection>();
+
             
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -57,6 +59,7 @@ namespace backEnd
                 // Apply CORS policy for all users
 
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,6 +86,8 @@ namespace backEnd
             app.UseCors("CORS");
             // app.UseHttpsRedirection();
             app.UseMvc();
+            
+      
         }
     }
 }
