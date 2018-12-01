@@ -19,7 +19,7 @@ services:
     ports:
       - "8089:5000"
     networks:
-      - social_network
+      - quizrt-question-generator-server_default
   neo4j:
     image: neo4j:latest
     ports:
@@ -30,6 +30,6 @@ services:
       - NEO4J_dbms_connector_http_listen__address=:7474
       - NEO4J_dbms_connector_bolt_listen__address=:7687
 networks:
-  social_network:
+  quizrt-question-generator-server_default:
     external: true
 version: "3.5"

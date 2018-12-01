@@ -14,7 +14,7 @@ namespace SocialServer.Consumers
         }
         public void GetTopicsFromRabbitMQ()
         {
-            var factory = new ConnectionFactory() { HostName = "192.168.176.4", Port = 5672, UserName = "rabbitmq", Password = "rabbitmq" };
+            var factory = new ConnectionFactory() { HostName = "rabbitmq", Port = 5672, UserName = "rabbitmq", Password = "rabbitmq" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
