@@ -16,7 +16,7 @@ namespace backEnd.Controllers
         public SocialController(ITopic _topicObj)
         {
             this.topicObj=_topicObj;
-            topicObj.GetTopicsFromRabbitMQ();
+            //topicObj.GetTopicsFromRabbitMQ();
         }
        
         [HttpGet("topics")]

@@ -14,6 +14,8 @@ using Microsoft.Extensions.Options;
 using quizartsocial_backend;
 using quizartsocial_backend.Models;
 using Swashbuckle.AspNetCore.Swagger;
+using SocialServer.Consumers;
+
 namespace backEnd
 {
     public class Startup
@@ -34,8 +36,8 @@ namespace backEnd
             services.AddDbContext<SocialContext>(options => options.UseSqlServer(connString));
             Console.WriteLine("dfkadjakjsdkajdajdskasdjaksdsdssssssssss"+connString);
             services.AddScoped<ITopic, TopicRepo>();
-            services.AddSingleton<GraphDbConnection>();
-
+            // services.AddSingleton<GraphDbConnection>();
+            services.AddSingleton<TopicConsumer>();
             
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
