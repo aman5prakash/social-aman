@@ -33,7 +33,7 @@ namespace quizartsocial_backend
         }
         public void GetTopicsFromRabbitMQ()
         {
-            var factory = new ConnectionFactory() { HostName = "192.168.176.4" };
+            var factory = new ConnectionFactory() { HostName = "192.168.176.4", UserName = "rabbitmq", Password = "rabbitmq" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
