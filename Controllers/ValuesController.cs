@@ -16,11 +16,13 @@ namespace backEnd.Controllers
         public SocialController(ITopic _topicObj)
         {
             this.topicObj=_topicObj;
+            topicObj.GetTopicsFromRabbitMQ();
         }
        
         [HttpGet("topics")]
         public async Task<IActionResult> GetTopics()
-        {  
+        {
+            // topicObj.GetTopicsFromRabbitMQ();
             List<Topic> allTopics = await topicObj.FetchTopicsFromDbAsync();
             return Ok(allTopics);
         }

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
 
 namespace quizartsocial_backend
 {
@@ -26,14 +29,35 @@ namespace quizartsocial_backend
                                .Include("posts").SelectMany(s => s.posts)
                                .Include("comments")
                                .ToListAsync();
-                                return posts;
+            return posts;
+        }
+        public void GetTopicsFromRabbitMQ()
+        {
+            var factory = new ConnectionFactory() { HostName = "192.168.176.4" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.QueueDeclare(queue: "Topic", durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+                var consumer = new EventingBasicConsumer(channel);
+                consumer.Received += (model, ea) =>
+                {
+                    var body = ea.Body;
+                    var message = Encoding.UTF8.GetString(body);
+                    Console.WriteLine(" [x] Received {0}", message);
+                };
+                channel.BasicConsume(queue: "Topic", autoAck: true, consumer: consumer);
+
+                Console.WriteLine(" Press [enter] to exit.");
+                Console.ReadLine();
+            }
         }
         public async Task<List<Topic>> FetchTopicsFromDbAsync()
         {
-            Topic test1= new Topic();
-            Topic test2= new Topic();
-            test1.topicName="book";
-            test1.topicImage="sad";
+            Topic test1 = new Topic();
+            Topic test2 = new Topic();
+            test1.topicName = "book";
+            test1.topicImage = "sad";
             await AddTopicToDBAsync(test1);
             await AddTopicToDBAsync(test2);
             List<Topic> res = await context.Topics.ToListAsync();
@@ -57,7 +81,7 @@ namespace quizartsocial_backend
 
         public async Task AddUserToDBAsync(User obj)
         {
-            if(context.Users.FirstOrDefault(n => n.userId == obj.userId) == null)
+            if (context.Users.FirstOrDefault(n => n.userId == obj.userId) == null)
             {
                 await context.Users.AddAsync(obj);
                 await context.SaveChangesAsync();
