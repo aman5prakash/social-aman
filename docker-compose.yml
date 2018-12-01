@@ -10,7 +10,7 @@ services:
     ports:
       - "1433"
   prateek-socialback:
-    build: ./quizrt-social-server
+    build: .
     container_name: prateek-socialback
     environment:
       SQLSERVER_HOST: Server=prateek-db;User=sa;Password=Your_password123
