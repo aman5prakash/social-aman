@@ -76,6 +76,7 @@ namespace quizartsocial_backend
         {
             Console.WriteLine("-----------------entered--------------");
             Topic topic = await context.Topics.FirstOrDefaultAsync(s => s.topicName == topicName);
+            Console.WriteLine("-----------------name----------------",topic.topicName);
             context.Topics.Remove(topic);
             Console.WriteLine("-----------removed-----------");
             await context.SaveChangesAsync();
