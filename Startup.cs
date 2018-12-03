@@ -35,7 +35,7 @@ namespace backEnd
             var connString = Environment.GetEnvironmentVariable("SQLSERVER_HOST") ?? "Server=localhost\\SQLEXPRESS;Database=QuizRTSocialDb;Trusted_Connection=True;";
             services.AddDbContext<SocialContext>(options => options.UseSqlServer(connString));
             Console.WriteLine("dfkadjakjsdkajdajdskasdjaksdsdssssssssss"+connString);
-            services.AddScoped<ITopic, TopicRepo>();
+            services.AddSingleton<ITopic, TopicRepo>();
             // services.AddSingleton<GraphDbConnection>();
             services.AddSingleton<TopicConsumer>();
             
