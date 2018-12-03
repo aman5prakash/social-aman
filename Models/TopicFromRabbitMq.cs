@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using quizartsocial_backend.Models;
 using quizartsocial_backend;
@@ -11,8 +12,9 @@ namespace SocialServer.Consumers
     public class TopicConsumer
     {
         ITopic topicObj;
-        public TopicConsumer(DbContextOptions<SocialContext> dbContextOptions)
+        public TopicConsumer(IServiceProvider serviceProvider)
         {
+            var dbContextOptions = serviceProvider.GetRequiredService<DbContextOptions<SocialContext>>();
             var socialContext = new SocialContext(dbContextOptions);
             Console.WriteLine("Listening from RabbitMQ");
             this.topicObj = new TopicRepo(socialContext);
