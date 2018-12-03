@@ -80,7 +80,7 @@ namespace quizartsocial_backend
             {
                 Console.WriteLine("-----------------name----------------"+topic.topicName);
                 context.Topics.Remove(topic);   
-                Console.WriteLine("-----------removed-----------");
+                Console.WriteLine("-----------removed------------");
             }
             await context.SaveChangesAsync();
         }
