@@ -60,17 +60,17 @@ namespace backEnd.Controllers
         
         [HttpPost]
         [Route("user")]
-        public IActionResult CreateUser([FromBody] User value)
+        public async Task<IActionResult> CreateUser([FromBody] User value)
         {            
-            topicObj.AddUserToDBAsync(value);
+            await topicObj.AddUserToDBAsync(value);
             return Ok();
         }
 
         [HttpDelete]
         [Route("topic/{topicName}")]
-        public IActionResult Deletetopic([FromRoute] string topicName)
+        public async Task<IActionResult> DeletetopicAsync([FromRoute] string topicName)
         {
-            topicObj.DelTopicFromDBAsync(topicName);
+            await  topicObj.DelTopicFromDBAsync(topicName);
             return Ok();
         }
     }
