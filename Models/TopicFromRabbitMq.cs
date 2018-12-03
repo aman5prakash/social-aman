@@ -2,17 +2,20 @@ using System;
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Microsoft.EntityFrameworkCore;
 using quizartsocial_backend.Models;
+using quizartsocial_backend;
 
 namespace SocialServer.Consumers
 {
     public class TopicConsumer
     {
         ITopic topicObj;
-        public TopicConsumer(ITopic _topicObj)
+        public TopicConsumer(DbContextOptions<SocialContext> dbContextOptions)
         {
+            var socialContext = new SocialContext(dbContextOptions);
             Console.WriteLine("Listening from RabbitMQ");
-            this.topicObj = _topicObj;
+            this.topicObj = new TopicRepo(socialContext);
             GetTopicsFromRabbitMQ();
         }
         public void GetTopicsFromRabbitMQ()
