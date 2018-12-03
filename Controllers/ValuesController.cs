@@ -65,6 +65,14 @@ namespace backEnd.Controllers
             topicObj.AddUserToDBAsync(value);
             return Ok();
         }
+
+        [HttpDelete]
+        [Route("topic/{topicName}")]
+        public IActionResult DeleteUser([FromRoute] string topicName)
+        {
+            topicObj.DelTopicFromDBAsync(topicName);
+            return Ok();
+        }
     }
 }
 
