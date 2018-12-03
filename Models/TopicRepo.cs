@@ -64,8 +64,10 @@ namespace quizartsocial_backend
 
         public async Task AddTopicToDBAsync(Topic obj)
         {
+            Console.WriteLine("---------{0}----------",obj.topicName);
             if (context.Topics.FirstOrDefault(n => n.topicName == obj.topicName) == null)
             {
+                Console.WriteLine("rabbit -topic getting inserted---",obj.topicName);
                 await context.Topics.AddAsync(obj);
                 await context.SaveChangesAsync();
             }
