@@ -2,14 +2,17 @@ using System;
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using quizartsocial_backend.Models;
 
 namespace SocialServer.Consumers
 {
     public class TopicConsumer
     {
-        public TopicConsumer()
+        ITopic topicObj;
+        public TopicConsumer(ITopic _topicObj)
         {
             Console.WriteLine("Listening from RabbitMQ");
+            this.topicObj = _topicObj;
             GetTopicsFromRabbitMQ();
         }
         public void GetTopicsFromRabbitMQ()
@@ -26,6 +29,9 @@ namespace SocialServer.Consumers
                 var body = ea.Body;
                 var message = Encoding.UTF8.GetString(body);
                 Console.WriteLine(message);
+                Topic obj = new Topic();
+                obj.topicName = message;
+                this.topicObj.AddTopicToDBAsync(obj);
                 Console.WriteLine(" [x] Received {0}", message);
             };
             channel.BasicConsume(queue: "Topic", autoAck: true, consumer: consumer);
