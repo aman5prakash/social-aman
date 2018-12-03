@@ -12,11 +12,8 @@ namespace SocialServer.Consumers
     public class TopicConsumer
     {
         ITopic topicObj;
-        public TopicConsumer(IServiceProvider serviceProvider)
+        public TopicConsumer(SocialContext socialContext)
         {
-            var dbContextOptions = serviceProvider.GetRequiredService<DbContextOptions<SocialContext>>();
-            var socialContext = new SocialContext(dbContextOptions);
-            Console.WriteLine("Listening from RabbitMQ");
             this.topicObj = new TopicRepo(socialContext);
             GetTopicsFromRabbitMQ();
         }

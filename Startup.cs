@@ -41,7 +41,10 @@ namespace backEnd
             services.AddScoped<ITopic, TopicRepo>();
             
             // services.AddSingleton<GraphDbConnection>();
-            services.AddSingleton<TopicConsumer>();
+            var dbContextOptionsBuilder = new DbContextOptionsBuilder<SocialContext>();
+            var dbContextOptions = dbContextOptionsBuilder.UseSqlServer(connString).Options;
+            var socialDbContext = new SocialContext(dbContextOptions);
+            services.AddSingleton(s => new TopicRepo(socialDbContext));
             
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
