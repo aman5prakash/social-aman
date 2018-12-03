@@ -75,11 +75,14 @@ namespace quizartsocial_backend
         public async Task DelTopicFromDBAsync(string topicName)
         {
             Console.WriteLine("-----------------entered--------------");
-            Topic topic = await context.Topics.FirstOrDefaultAsync(s => s.topicName == topicName);
-            Console.WriteLine("-----------------name----------------"+topic.topicName);
-            context.Topics.Remove(topic);
-            Console.WriteLine("-----------removed-----------");
-            await context.SaveChangesAsync();
+            var topic = await (context.Topics.FirstOrDefaultAsync(s => s.topicName == topicName));
+            if(topic != null)
+            {
+                Console.WriteLine("-----------------name----------------"+topic.topicName);
+                context.Topics.Remove(topic);   
+                Console.WriteLine("-----------removed-----------");
+                await context.SaveChangesAsync();
+            }
         }
 
 
