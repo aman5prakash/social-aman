@@ -68,9 +68,18 @@ namespace backEnd.Controllers
 
         [HttpDelete]
         [Route("topic/{topicName}")]
-        public async Task<IActionResult> DeletetopicAsync([FromRoute] string topicName)
+        public async Task<IActionResult> DeleteTopicAsync([FromRoute] string topicName)
         {
             await  topicObj.DelTopicFromDBAsync(topicName);
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("topic/{id : int}")]
+
+        public async Task<IActionResult> DeleteTopicFromIdAsync(int id)
+        {
+            await topicObj.DelTopicByIdAsync(id);
             return Ok();
         }
     }
