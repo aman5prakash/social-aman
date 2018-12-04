@@ -1,6 +1,6 @@
 version: "3.5"
 services:
-  prateek-db:
+  quizrt-social-db:
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: Your_password123
@@ -11,12 +11,12 @@ services:
       - "1433"
     networks:
       - quizrt-social-server-network
-  prateek-socialback:
+  quizrt-social-server:
     build: .
     environment:
-      SQLSERVER_HOST: Server=prateek-db;User=sa;Password=Your_password123
+      SQLSERVER_HOST: Server=quizrt-social-db;User=sa;Password=Your_password123
     links:
-      - prateek-db
+      - quizrt-social-db
     ports:
       - "8089:5000"
     networks:
