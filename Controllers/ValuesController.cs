@@ -75,7 +75,7 @@ namespace backEnd.Controllers
         }
 
         [HttpDelete]
-        [Route("topic/{id}")]
+        [Route("topic/{id:int}")]
 
         public async Task<IActionResult> DeleteTopicFromIdAsync(int id)
         {
