@@ -85,6 +85,18 @@ namespace quizartsocial_backend
             await context.SaveChangesAsync();
         }
 
+        public async Task DelTopicByIdAsync(int id)
+        {
+            var  topic = await context.Topics.FirstOrDefaultAsync(s => s.topicId == id);
+            if(topic != null)
+            {
+                Console.WriteLine("-----------------name----------------"+topic.topicName);
+                context.Topics.Remove(topic);   
+                Console.WriteLine("-----------removed------------");
+            }
+            await context.SaveChangesAsync();
+        }
+
 
         public async Task AddPostToDBAsync(Post obj)
         {

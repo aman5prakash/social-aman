@@ -7,6 +7,7 @@ namespace quizartsocial_backend.Models
     {
         Task AddTopicToDBAsync(Topic obj);
         Task DelTopicFromDBAsync(string topicName);
+        Task DelTopicByIdAsync(int id);
         Task AddPostToDBAsync(Post obj);
         Task AddUserToDBAsync(User obj);
         Task AddCommentToDBAsync(Comment obj);
