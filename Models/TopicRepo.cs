@@ -52,12 +52,12 @@ namespace quizartsocial_backend
         // }
         public async Task<List<Topic>> FetchTopicsFromDbAsync()
         {
-            Topic test1 = new Topic();
-            Topic test2 = new Topic();
-            test1.topicName = "book";
-            test1.topicImage = "sad";
-            await AddTopicToDBAsync(test1);
-            await AddTopicToDBAsync(test2);
+            // Topic test1 = new Topic();
+            // Topic test2 = new Topic();
+            // test1.topicName = "book";
+            // test1.topicImage = "sad";
+            // await AddTopicToDBAsync(test1);
+            // await AddTopicToDBAsync(test2);
             List<Topic> res = await context.Topics.ToListAsync();
             return res;
         }
