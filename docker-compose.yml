@@ -14,7 +14,7 @@ services:
   quizrt-social-server:
     build: .
     labels: 
-      SERVICE_5000_NAME: SocialServer
+      SERVICE_5000_NAME: SocialEngine
     environment:
       SQLSERVER_HOST: Server=quizrt-social-db;User=sa;Password=Your_password123
     links:
